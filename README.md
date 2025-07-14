@@ -5,7 +5,7 @@
 
 This project demonstrates real-time anomaly detection on STM32 using:
 
-- **scikit-learn SVM**
+- **scikit-learn SVM** (Overview from ARM: https://developer.arm.com/documentation/102052/0100/Train-an-SVM-classifier-with-scikit-learn).
 - **Live voltage sampling**
 - **TensorFlow autoencoder validation**
 
