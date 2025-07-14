@@ -2,8 +2,10 @@
 # ⚡ Scikit Embedded Machine Learning on STM32 (Barebones Footprint)
 
 This project demonstrates real-time anomaly detection on STM32 using **scikit-learn SVM**, **live voltage sampling**, and **TensorFlow autoencoder validation**, all running on a **bare-metal STM32F4** (no HAL, no stdlib) with a **minimal binary footprint**.
-NOTE: the easy way is to just use STM32CubeIDE for using the ML.  All the makefile and gdbserver, openocd, st-flash configs are for Makefile projects that work SxS with the IDE project, but the binaries are much smaller.  I'll do a video, there are a lot of steps.
-
+> **NOTE**: The easiest way to get started is by using STM32CubeIDE, especially for managing machine learning projects.  
+> The Makefile setup with GDB server, OpenOCD, and st-flash is meant for standalone builds that live side-by-side with the IDE project.  
+> This setup produces much smaller binaries and gives tighter control over the toolchain.  
+> I’ll record a video walkthrough soon — there are a lot of steps, and it’ll help connect the dots.
 It includes:
 
 * Embedded machine learning inference with hand-coded SVM support (trained via `scikit-learn`)
