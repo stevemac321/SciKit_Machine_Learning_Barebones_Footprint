@@ -93,7 +93,7 @@ This project supports firmware flashing and live debugging of STM32F4 devices us
 ### ✅ Toolchain Overview
 - `st-flash`: A lightweight STM32 flasher. Installed to `C:\Program Files (x86)\stlink\bin\st-flash.exe`.
 - `OpenOCD`: Full-featured debugger and flasher, used for GDB sessions and direct flashing.
-- `STM32_Programmer_CLI`: Optional — bundled with STM32CubeIDE for flashing via ST-Link if other tools fail.
+
 
 ### 🛠️ Setting Up `st-flash` on Windows
 If using `st-flash`, ensure these dependencies are in place:
@@ -148,24 +148,45 @@ arm-none-eabi-gdb BareBones.elf
 (gdb) target remote localhost:3333
 ```
 
-* **Linux**:
+# 🛠️ Step-by-step Install for STM32 Development Environment (Ubuntu Server)
 
-* Requires `arm-none-eabi-gcc`, `make`, etc.
+# 1. Update Package Lists
+sudo apt update
 
-# Install arm-none-eabi-gcc (cross-compiler for ARM Cortex-M/R)
+# 2. Install Core Build Tools
+sudo apt install build-essential make
+
+# 3. Install Python Tools
+sudo apt install python3-pip python3-venv
+
+# 4. Install USB and Device Libraries
+sudo apt install libusb-1.0-0-dev libhidapi-dev libudev-dev
+
+# 5. Install ARM Cross Compiler
 sudo apt install gcc-arm-none-eabi
 
-# Install make (build automation tool)
-sudo apt install make
-
-# Install st-link tools (for flashing/debugging STM32 via ST-Link)
+# 6. Install ST-Link Tools
 sudo apt install stlink-tools
 
-# Install gdb-multiarch (GDB with support for multiple architectures)
-sudo apt install gdb-multiarch
-  * sudo apt-get install libusb-1.0-0-dev (Ubuntu).
-  * `make`
+# 7. Install OpenOCD (GDB server & debugger)
+sudo apt install openocd
 
+# 8. Install GDB with Multi-Arch Support
+sudo apt install gdb-multiarch
+
+# ✅ Optional: Install STM32CubeIDE (Graphical IDE from STMicroelectronics)
+
+# Download CubeIDE .deb package (adjust version as needed)
+wget https://www.st.com/content/ccc/resource/technical/software/sw_development_suite/group0/77/50/78/29/a4/5e/4c/f7/stm32cubeide_latest/files/stm32cubeide_1.14.0_amd64.deb.zip
+
+# Unzip the package
+unzip stm32cubeide_1.14.0_amd64.deb.zip
+
+# Install using dpkg (may take a few minutes)
+sudo dpkg -i stm32cubeide_1.14.0_amd64.deb
+
+# Resolve any missing dependencies
+sudo apt --fix-broken install
 * **Note**: Makefile builds output directly to the project root, not `Debug/`
 
 ---
