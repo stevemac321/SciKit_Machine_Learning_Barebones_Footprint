@@ -24,7 +24,7 @@ All of this runs on a **bare-metal STM32F4** — no HAL, no stdlib — with an e
 > 
 > The Makefile setup also integrates flashing and debugging via `OpenOCD`, `st-flash`, and GDB server — useful for streamlined automation and lean deployments.
 >
-> I’ll be releasing a video walkthrough soon — there are quite a few setup steps, and visual guidance will help pull it all together.
+> **I’ll be releasing a video walkthrough soon for the Linux scenario** — there are quite a few setup steps, and visual guidance will help pull it all together.
 
 * Embedded machine learning inference with hand-coded SVM support (trained via `scikit-learn`)
 * Optional verification using a trained Keras autoencoder (`voltage.keras`)
