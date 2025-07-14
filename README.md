@@ -2,6 +2,7 @@
 # ⚡ Scikit Embedded Machine Learning on STM32 (Barebones Footprint)
 
 This project demonstrates real-time anomaly detection on STM32 using **scikit-learn SVM**, **live voltage sampling**, and **TensorFlow autoencoder validation**, all running on a **bare-metal STM32F4** (no HAL, no stdlib) with a **minimal binary footprint**.
+NOTE: the easy way is to just use STM32CubeIDE for using the ML.  All the makefile and gdbserver, openocd, st-flash configs are for Makefile projects that work SxS with the IDE project, but the binaries are much smaller.  I'll do a video, there are a lot of steps.
 
 It includes:
 
@@ -78,7 +79,7 @@ It includes:
 ### Option 1: UART Logging Mode
 
 1. Define macro `LOG_ONLY` (in `main.c`)
-2. Flash the board
+2. Flash the board (more on that below if not using IDE).
 3. Use serial terminal to capture output:
 
    * **Windows**: TEXaS, PuTTY
@@ -95,9 +96,77 @@ It includes:
 * This will:
 
   * Start `openocd`
-  * Launch `gdb-multiarch` with `gdbscript`
+  * Launch `gdb-multiarch` with `gdbscript` (or arm-none-eabi-gdb for windows).
   * Flash and start the board automatically
+Absolutely — here’s a README snippet that wraps up everything you just wrangled, clean and ready to drop into your repo:
 
+```markdown
+## Flashing and Debugging STM32 on Windows
+
+This project supports firmware flashing and live debugging of STM32F4 devices using either `st-flash` or `OpenOCD`. Here's how the setup works:
+
+### ✅ Toolchain Overview
+- `st-flash`: A lightweight STM32 flasher. Installed to `C:\Program Files (x86)\stlink\bin\st-flash.exe`.
+- `OpenOCD`: Full-featured debugger and flasher, used for GDB sessions and direct flashing.
+- `STM32_Programmer_CLI`: Optional — bundled with STM32CubeIDE for flashing via ST-Link if other tools fail.
+
+### 🛠️ Setting Up `st-flash` on Windows
+If using `st-flash`, ensure these dependencies are in place:
+
+1. **Install `st-flash.exe`**  
+   Install to:  
+   ```
+   C:\Program Files (x86)\stlink\
+   ```
+
+2. **Patch missing config directory**  
+   Create:
+   ```
+   C:\Program Files (x86)\stlink\config\chips\
+   ```
+   And place `.chip` definitions inside (e.g. `F411xC_xE.chip`) if not already present.
+
+3. **Install `libusb-1.0.dll`**  
+   Download from [libusb.info](https://libusb.info)  
+   → Extract `libusb-1.0.dll` from:
+   ```
+   libusb-1.0.29\MinGW64\dll\
+   ```
+   → Place next to `st-flash.exe` or in a PATH directory.
+
+4. **Troubleshooting ST-Link detection**
+   - Use USB 2.0 port if ST-Link isn’t recognized
+   - Check Device Manager for proper driver (install [STSW-LINK009](https://www.st.com/en/development-tools/stsw-link009.html) if needed)
+
+### 🔁 Flashing with OpenOCD
+
+To flash from console:
+
+```bash
+openocd -s /c/tools/OpenOCD/share/openocd/scripts \
+        -f interface/stlink.cfg \
+        -f target/stm32f4x.cfg \
+        -c "program BareBones.bin 0x08000000 verify reset exit"
+```
+
+To start GDB server:
+
+```bash
+openocd -s /c/tools/OpenOCD/share/openocd/scripts \
+        -f interface/stlink.cfg \
+        -f target/stm32f4x.cfg
+```
+
+Then attach from GDB with:
+```bash
+arm-none-eabi-gdb BareBones.elf
+(gdb) target remote localhost:3333
+```
+
+---
+
+This setup keeps runtime lean and avoids GUI dependencies. OpenOCD handles debug sessions, while flashing is optional — either tool works, depending on your workflow.
+```
 ---
 Project Structure:
 Core/ – C source code for STM32 firmware.
