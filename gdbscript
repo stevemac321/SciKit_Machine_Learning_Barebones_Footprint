@@ -1,9 +1,10 @@
 tar ext:3333
+#tar ext:4242 #for st-util
 set confirm off
 break dummy
 break main
 load
-#run
+#run  #this is hit and miss for me.
 step
 continue
 
