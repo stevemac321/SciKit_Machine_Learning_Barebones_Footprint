@@ -52,11 +52,11 @@ All of this runs on a **bare-metal STM32F4** — no HAL, no stdlib — with an e
 
 1. **Live voltage sampling** on the STM32 (ADC to buffer)
 2. **Training data collection**:
-
+   * see https://developer.arm.com/documentation/102052/0100/Train-an-SVM-classifier-with-scikit-learn for using scikit-learn, but I have a training SVM model included in the project to see demo the ML.
    * Use `LOG_ONLY` mode to log live data via UART
-   * Capture output with TEXaS reader or PuTTY (Windows) or `screen` (Linux)
+   * Capture output with TEXaS reader or PuTTY (Windows) or `screen` (Linux) there are several.
 3. **Training**:
-
+   * 
    * `train_keras.py`: Trains a Keras autoencoder on live + known-anomaly data
    * Includes ECG anomaly data from TensorFlow's official tutorial (`ecg.csv`)
    * Saves model as `voltage.keras` + normalization stats
