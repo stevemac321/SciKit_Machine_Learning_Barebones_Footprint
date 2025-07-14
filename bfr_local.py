@@ -7,7 +7,7 @@ import time
 # Paths
 BINFILE = './BareBones.bin'
 ELFFILE = './BareBones.elf'
-GDBSCRIPT = os.path.join(os.environ.get("MLIBS_ROOT", "."), "gdbscript")
+
 
 def run_cmd(cmd, cwd=None, wait=True):
     proc = subprocess.Popen(cmd, cwd=cwd)
@@ -21,10 +21,7 @@ def clean():
 def build():
     run_cmd(['make'])
 
-def flash():
-    run_cmd(['st-flash', 'write', BINFILE, '0x08000000'])
-
-def flash_and_run():
+def run():
     # Flash firmware
     flash()
     time.sleep(0.3)  # give st-flash some time
@@ -37,16 +34,10 @@ def flash_and_run():
     # Wait for OpenOCD to be ready (you can replace with log-based check)
     time.sleep(1.0)
 
-    # Run GDB with script
-    if not os.path.exists(GDBSCRIPT):
-        print(f"Error: GDB script '{GDBSCRIPT}' not found.")
-        openocd.kill()
-        return
-
     try:
         gdb = subprocess.Popen([
             'gdb-multiarch', ELFFILE,
-            '--batch', '--command=' + GDBSCRIPT
+            '--batch', '--command=' + 'gdbscript'
         ])
         gdb.wait()
     finally:
@@ -68,10 +59,8 @@ if __name__ == '__main__':
             clean()
         elif cmd == 'build':
             build()
-        elif cmd == 'flash':
-            flash()
-        elif cmd == 'flashrun':
-            flash_and_run()
+        elif cmd == 'run':
+            run()
         else:
             print(f"Unknown command: {cmd}")
 
