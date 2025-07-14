@@ -99,35 +99,22 @@ It includes:
   * Flash and start the board automatically
 
 ---
+Project Structure:
+Core/ – C source code for STM32 firmware.
 
-## 🧪 Python Scripts
+Drivers.zip – Official STM32 device drivers (optional if using CubeIDE).
 
-| File                | Purpose                                              |
-| ------------------- | ---------------------------------------------------- |
-| `train_keras.py`    | Train autoencoder on live data + known anomalies     |
-| `test_live.py`      | Run inference on captured data using `voltage.keras` |
-| `bfr_local.py`      | Automates OpenOCD and GDB flashing/debug             |
-| `voltage.keras`     | Keras autoencoder model (for validation)             |
-| `voltage_stats.npz` | Mean/std for normalization (used by `test_live.py`)  |
-| `ecg.csv`           | Optional anomaly data to mix in with training        |
+Keras.zip – Python tools:
 
----
+train_keras.py, test_live.py for Keras model
 
-## 📦 Project Structure
+Training data (live voltage + anomaly samples)
 
-```
-├── Makefile
-├── main.c                 # Core app logic
-├── bfr_local.py           # Automated debug/flash
-├── gdbscript              # GDB commands
-├── ecg.csv                # Anomaly data
-├── live.txt               # Captured UART output
-├── test_live.py           # Python inference with TensorFlow
-├── train_keras.py         # Model trainer
-├── voltage.keras          # Trained autoencoder model
-├── voltage_stats.npz      # Normalization stats
-├── STM32CubeIDE_project/  # Zipped project files
-```
+Saved model (voltage.keras)
+
+Supporting Makefile, linker scripts, and flash utilities
+
+ProjectFiles/ – STM32CubeIDE project files (optional; for GUI users)
 
 ---
 
