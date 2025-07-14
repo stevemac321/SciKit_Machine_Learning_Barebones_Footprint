@@ -1,0 +1,18 @@
+#tar ext:3333
+tar ext:4242
+set confirm off
+break dummy
+break main
+#load
+run
+step
+continue
+
+# Wait a bit before kill/delete
+shell sleep 3
+
+delete
+
+kill
+
+
