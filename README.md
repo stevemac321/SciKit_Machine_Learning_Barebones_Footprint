@@ -80,44 +80,12 @@ All of this runs on a **bare-metal STM32F4** — no HAL, no stdlib — with an e
 * **Windows**:
 
   * Install [ARM GNU Toolchain (14.3.rel1 MinGW)](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads)
-  * Open Git Bash
+  * Get OpenOCD and ST-Link for Windows (On windows I prefer ST-Util for debug session, st-flash for the Makefile flash)
+  * https://gnutoolchains.com/arm-eabi/openocd/
+  * https://www.st.com/en/development-tools/stsw-link004.html
+  * https://github.com/libusb/libusb/wiki/Windows
+  * Open Git Bash (install git for windows)
   * `make`
-
-* **Linux**:
-
-  * Requires `arm-none-eabi-gcc`, `make`
-  * `make`
-
-* **Note**: Makefile builds output directly to the project root, not `Debug/`
-
----
-
-## ▶️ Running and Capturing Output
-
-### Option 1: UART Logging Mode
-
-1. Define macro `LOG_ONLY` (in `main.c`)
-2. Flash the board (more on that below if not using IDE).
-3. Use serial terminal to capture output:
-
-   * **Windows**: TEXaS, PuTTY
-   * **Linux**: `screen /dev/ttyACM0 115200`
-4. Save log as `live.txt` to use with `test_live.py` or training scripts
-
-### Option 2: Automated Run with GDB/OpenOCD or ST-Util
-
-* Run:
-
-  ```bash
-  python bfr_local.py
-  ```
-* This will:
-
-  * Start `openocd`
-  * Launch `gdb-multiarch` with `gdbscript` (or arm-none-eabi-gdb for windows, I use st-util, gdbscript_windows).
-  * Flash and start the board automatically
-
-```markdown
 ## Flashing and Debugging STM32 on Windows
 
 This project supports firmware flashing and live debugging of STM32F4 devices using either `st-flash` or `OpenOCD`. Here's how the setup works:
@@ -180,7 +148,55 @@ arm-none-eabi-gdb BareBones.elf
 (gdb) target remote localhost:3333
 ```
 
+* **Linux**:
+
+* Requires `arm-none-eabi-gcc`, `make`, etc.
+
+# Install arm-none-eabi-gcc (cross-compiler for ARM Cortex-M/R)
+sudo apt install gcc-arm-none-eabi
+
+# Install make (build automation tool)
+sudo apt install make
+
+# Install st-link tools (for flashing/debugging STM32 via ST-Link)
+sudo apt install stlink-tools
+
+# Install gdb-multiarch (GDB with support for multiple architectures)
+sudo apt install gdb-multiarch
+  * sudo apt-get install libusb-1.0-0-dev (Ubuntu).
+  * `make`
+
+* **Note**: Makefile builds output directly to the project root, not `Debug/`
+
 ---
+
+## ▶️ Running and Capturing Output
+
+### Option 1: UART Logging Mode
+
+1. Define macro `LOG_ONLY` (in `main.c`)
+2. Flash the board (more on that below if not using IDE).
+3. Use serial terminal to capture output:
+
+   * **Windows**: TEXaS, PuTTY
+   * **Linux**: `screen /dev/ttyACM0 115200`
+4. Save log if you want to run the TensorFlow Inference (see instructions below)
+
+### Option 2: Automated Run with GDB/OpenOCD or ST-Util
+
+* Run:
+
+  ```bash
+  python bfr_local.py
+  ```
+* This will:
+
+  * Start `openocd`
+  * Launch `gdb-multiarch` with `gdbscript` (or arm-none-eabi-gdb for windows, I use st-util, gdbscript_windows).
+  * Flash and start the board automatically
+
+```markdown
+
 
 This setup keeps runtime lean and avoids GUI dependencies. OpenOCD handles debug sessions, while flashing is optional — either tool works, depending on your workflow.
 ```
@@ -212,12 +228,41 @@ ProjectFiles/ – STM32CubeIDE project files (optional; for GUI users)
 * You can tweak SVM threshold from training output if needed
 
 ---
+Absolutely, Stephen — here's a clear and concise **“Running Inference”** section tailored to your Keras setup:
 
-## 📈 Future Improvements
+---
 
-* Add onboard threshold tuning via UART or pin inputs
-* Optionally support micro-TensorFlow Lite if memory allows
-* Add CLI interface to training/inference pipeline
+## 🧪 Compare SciKit-Learn results with TensorFlow Keras Model  
+
+Once your model (`voltage.keras` is already trained) is trained, you can evaluate new data through the inference script `test_live.py`. This script loads `live.txt`, which contains raw voltage data captured from your COM port reader.
+
+### 🔍 Step-by-Step Inference Flow
+1. **Prepare Input**  
+   The sample `live.txt` cam be refreshed by running the embedded ap in LOG_ONLY mode which prints new voltage samples to the com port reader.  (See above Running and Capturing Output). Save that to 'live.txt'.
+
+2. **Run the Script**  
+   Execute the test script from within the Keras project directory:
+   ```bash
+   python3 test_live.py
+   ```
+
+3. **Model Loading**  
+   Inside `test_live.py`, the trained model `voltage.keras` is automatically loaded. You can verify this in the script using:
+   ```python
+   model = keras.models.load_model("voltage.keras")
+   ```
+
+4. **Prediction**  
+   The input is processed and passed through the model to generate predictions. These may indicate normal vs anomaly based on thresholds established during training.
+
+5. **Interpret Output**  
+   The script should print or log inference results — e.g., classification labels, confidence scores, or anomaly flags. If you want to visualize or post-process them, consider extending the script with matplotlib or saving outputs to a file.
+
+---
+
+Let me know if you'd like to refine how the output is presented or make it stream live from the COM port for real-time evaluation. I can help tweak your script to support that next.
+
+
 
 ---
 
