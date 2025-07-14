@@ -186,7 +186,7 @@ sudo apt install cutecom
 
 It does require xwindows, I use ssh with MobaxTerm and x11 forwarding, works great
 
-#10 clone this project, unzip Drivers, Keras, ProjectFiles (optional).
+# 10. clone this project, unzip Drivers, Keras, ProjectFiles (optional).
 
 # ✅ Optional: Install STM32CubeIDE (Graphical IDE from STMicroelectronics)
 
