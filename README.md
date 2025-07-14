@@ -1,12 +1,28 @@
 
 # ⚡ Scikit Embedded Machine Learning on STM32 (Barebones Footprint)
 
-This project demonstrates real-time anomaly detection on STM32 using **scikit-learn SVM**, **live voltage sampling**, and **TensorFlow autoencoder validation**, all running on a **bare-metal STM32F4** (no HAL, no stdlib) with a **minimal binary footprint**.
-> **NOTE**: The easiest way to get started is by using STM32CubeIDE, especially for managing machine learning projects.  
-> The Makefile setup with GDB server, OpenOCD, and st-flash is meant for standalone builds that live side-by-side with the IDE project.  
-> This setup produces much smaller binaries and gives tighter control over the toolchain.  
-> I’ll record a video walkthrough soon — there are a lot of steps, and it’ll help connect the dots.
-It includes:
+## Real-Time ML Inference on STM32 (Bare-Metal)
+
+This project demonstrates real-time anomaly detection on STM32 using:
+
+- **scikit-learn SVM**
+- **Live voltage sampling**
+- **TensorFlow autoencoder validation**
+
+All of this runs on a **bare-metal STM32F4** — no HAL, no stdlib — with an emphasis on keeping the **binary footprint minimal**.
+
+---
+
+> **NOTE**: There are four main ways to approach this:
+>
+> 1. **STM32CubeIDE (Windows or Linux)** — The easiest way to get started, especially for evaluating ML workflows quickly.
+> 2. **Makefile-based builds (Linux)** — Best on systems like Ubuntu; setup is simple with `sudo apt install`.
+> 3. **Makefile-based builds (Windows)** — Requires manual steps like installing DLLs locally and setting environment variables.
+> 4. **Hybrid workflow** — The Makefile build lives alongside the IDE project, allowing for cleaner binaries and finer control over the toolchain.
+>
+> The Makefile setup also integrates flashing and debugging via `OpenOCD`, `st-flash`, and GDB server — useful for streamlined automation and lean deployments.
+>
+> I’ll be releasing a video walkthrough soon — there are quite a few setup steps, and visual guidance will help pull it all together.
 
 * Embedded machine learning inference with hand-coded SVM support (trained via `scikit-learn`)
 * Optional verification using a trained Keras autoencoder (`voltage.keras`)
