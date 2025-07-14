@@ -1,6 +1,6 @@
 
 # ⚡ Scikit Embedded Machine Learning on STM32 (Barebones Footprint)
-## Apart from this project's scikit-learn/TensorFlow applications, it features a low binary footprint Makefile project that works SxS with STM32CubeIDE project, 
+Apart from this project's scikit-learn/TensorFlow applications, it features a low binary footprint Makefile project that works SxS with STM32CubeIDE project, 
 but the Makefile produces a much smaller footprint both in terms of the .bin to be flashed and the .elf fo debugging.  IDE or Makefile, though I do include the
 original .ios (CubeMX) file, there is no generated code, HAL or otherwise.  Also, it does not use the C lib, nano or otherwise.
 The Driver sources are fresh, but have been pruned to the bare minimum, that includes the added CMSIS/DSP code, in particular the SVM functions.
