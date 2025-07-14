@@ -181,7 +181,9 @@ sudo apt install openocd
 sudo apt install gdb-multiarch
 
 # 9. Install a com port reader that you can copy or save to log, I am using: 
+
 sudo apt install cutecom
+
 It does require xwindows, I use ssh with MobaxTerm and x11 forwarding, works great
 
 #10 clone this project, unzip Drivers, Keras, ProjectFiles (optional).
