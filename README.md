@@ -20,6 +20,8 @@ All of this runs on a **bare-metal STM32F4** — no HAL, no stdlib — with an e
 > 3. **Makefile-based builds (Windows)** — Requires manual steps like installing DLLs locally and setting environment variables.
 > 4. **Hybrid workflow** — The Makefile build lives alongside the IDE project, allowing for cleaner binaries and finer control over the toolchain.
 >
+> ** RECOMMENDATION:** if you have Linux, follow the LINUX: Step-by-step Install for STM32 Development Environment (Ubuntu ) below.
+> 
 > The Makefile setup also integrates flashing and debugging via `OpenOCD`, `st-flash`, and GDB server — useful for streamlined automation and lean deployments.
 >
 > I’ll be releasing a video walkthrough soon — there are quite a few setup steps, and visual guidance will help pull it all together.
@@ -148,7 +150,7 @@ arm-none-eabi-gdb BareBones.elf
 (gdb) target remote localhost:3333
 ```
 
-# 🛠️ Step-by-step Install for STM32 Development Environment (Ubuntu Server)
+# 🛠️ LINUX: Step-by-step Install for STM32 Development Environment (Ubuntu )
 
 # 1. Update Package Lists
 sudo apt update
