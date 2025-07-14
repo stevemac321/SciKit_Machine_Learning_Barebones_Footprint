@@ -71,11 +71,11 @@ All of this runs on a **bare-metal STM32F4** — no HAL, no stdlib — with an e
 
 ### ✅ STM32CubeIDE (Windows/Linux)
 
-* Import the project `.ioc` or use zipped IDE files
+* use zipped ProjectFiles files
 * Builds to `Debug/` directory
 * Works as-is
 
-### ✅ Makefile Build (Much Smaller ELF)
+### ✅ Makefile Build (Much Smaller binaries)
 
 * **Windows**:
 
@@ -104,7 +104,7 @@ All of this runs on a **bare-metal STM32F4** — no HAL, no stdlib — with an e
    * **Linux**: `screen /dev/ttyACM0 115200`
 4. Save log as `live.txt` to use with `test_live.py` or training scripts
 
-### Option 2: Automated Run with GDB/OpenOCD
+### Option 2: Automated Run with GDB/OpenOCD or ST-Util
 
 * Run:
 
@@ -114,9 +114,8 @@ All of this runs on a **bare-metal STM32F4** — no HAL, no stdlib — with an e
 * This will:
 
   * Start `openocd`
-  * Launch `gdb-multiarch` with `gdbscript` (or arm-none-eabi-gdb for windows).
+  * Launch `gdb-multiarch` with `gdbscript` (or arm-none-eabi-gdb for windows, I use st-util, gdbscript_windows).
   * Flash and start the board automatically
-Absolutely — here’s a README snippet that wraps up everything you just wrangled, clean and ready to drop into your repo:
 
 ```markdown
 ## Flashing and Debugging STM32 on Windows
