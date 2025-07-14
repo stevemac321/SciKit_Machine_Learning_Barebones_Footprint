@@ -176,6 +176,10 @@ sudo apt install openocd
 # 8. Install GDB with Multi-Arch Support
 sudo apt install gdb-multiarch
 
+# 9. Install a com port reader that you can copy or save to log, I am using: 
+sudo apt install cutecom
+It does require xwindows, I use ssh with MobaxTerm and x11 forwarding, works great
+
 # ✅ Optional: Install STM32CubeIDE (Graphical IDE from STMicroelectronics)
 
 # Download CubeIDE .deb package (adjust version as needed)
