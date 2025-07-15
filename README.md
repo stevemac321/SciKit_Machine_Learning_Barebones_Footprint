@@ -188,6 +188,30 @@ It does require xwindows, I use ssh with MobaxTerm and x11 forwarding, works gre
 
 # 10. clone this project, unzip Drivers, Keras, ProjectFiles (optional).
 
+# 11. make, make flash, open second terminate, run:
+
+'openocd -s /c/tools/OpenOCD/share/openocd/scripts -f interface/stlink.cfg  -f target/stm32f4x.cfg'
+in the first terminal, run 'gdb-multiarch BareBones.elf'
+>tar ext:3333
+>b main
+>continue
+
+# 15.  If you want to test the output from the com port reader against TensorFlow Keras model, rebuild with 
+> #define LOG_ONLY uncommented out.
+> build, flash, and run as in step 11.
+> Save the float data to file.
+
+# 14.  cd into Keras directory.  
+> in test_live.py , where the comment reads Read and process file (line 27), replace live.txt with the file yu saved from the com port reader.
+> pip install --upgrade pip
+> pip install numpy scipy pandas matplotlib
+> pip install tensorflow
+
+#15 Active env
+>python3 -m venv tf_env
+>source tf_env/bin/activate  # On Linux/macOS
+
+
 # ✅ Optional: Install STM32CubeIDE (Graphical IDE from STMicroelectronics)
 
 # Download CubeIDE .deb package (adjust version as needed)
