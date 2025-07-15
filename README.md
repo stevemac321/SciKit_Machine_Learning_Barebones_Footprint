@@ -203,14 +203,13 @@ in the first terminal, run 'gdb-multiarch BareBones.elf'
 
 # 14.  cd into Keras directory.  
 > in test_live.py , where the comment reads Read and process file (line 27), replace live.txt with the file yu saved from the com port reader.
-> pip install --upgrade pip
-> pip install numpy scipy pandas matplotlib
-> pip install tensorflow
 
 #15 Active env
 >python3 -m venv tf_env
 >source tf_env/bin/activate  # On Linux/macOS
-
+> pip install --upgrade pip
+> pip install numpy scipy pandas matplotlib
+> pip install tensorflow
 
 # ✅ Optional: Install STM32CubeIDE (Graphical IDE from STMicroelectronics)
 
